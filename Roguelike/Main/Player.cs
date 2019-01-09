@@ -6,10 +6,11 @@ using Roguelike.Systems;
 
 namespace Roguelike.Core
 {
-    public class Player : Actor
+    public sealed class Player : Actor
     {
-        Log log = new Log();
-        public Player()
+        private static Player instance = null;
+        private Log log = new Log();
+        private Player()
         {
             Level = 1;
             Experience = 0;
@@ -27,6 +28,13 @@ namespace Roguelike.Core
             Name = "Gracz";
             Speed = 10;
             Symbol = '@';
+        }
+
+        public static Player GetInstance()
+        {
+            if (instance == null)
+                instance = new Player();
+            return instance;
         }
 
         public void DrawStats(RLConsole statConsole)

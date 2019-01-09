@@ -94,7 +94,7 @@ namespace Roguelike.Systems
             Player player = Game.Player;
             if (player == null)
             {
-                player = new Player();
+                player = Player.GetInstance();
             }
             player.X = _map.Rooms[0].Center.X;
             player.Y = _map.Rooms[0].Center.Y;
