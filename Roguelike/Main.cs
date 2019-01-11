@@ -4,6 +4,8 @@ using Roguelike.Systems;
 using RogueSharp.Random;
 using System;
 using System.Media;
+using Roguelike.MonsterFactories;
+using System.Collections.Generic;
 
 namespace RogueLike
 {
@@ -45,6 +47,7 @@ namespace RogueLike
         private static readonly int _lootHeight = 11;
         private static RLConsole _lootConsole;
         private static RLConsole _gameOverConsole;
+        private static List<MonsterFactory> factoryList;
 
         public static void Main()
         {
@@ -52,6 +55,14 @@ namespace RogueLike
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
             Commands = new Commands();
+
+            factoryList = new List<MonsterFactory>();
+            factoryList.Add(new KoboldFactory());
+            factoryList.Add(new OrcFactory());
+            factoryList.Add(new GoblinFactory());
+            factoryList.Add(new BeholderFactory());
+            factoryList.Add(new GoblinShamanFactory());//statyczna lista o ogólnym dostępie
+
             MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 20, 5, _mapLevel);
             DMap = mapGen.GenerateMap();
             DMap.UpdatePlayerFOV();
