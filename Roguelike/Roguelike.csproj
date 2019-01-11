@@ -81,6 +81,14 @@
     <Compile Include="Monsters\Goblin.cs" />
     <Compile Include="Monsters\Orc.cs" />
     <Compile Include="Monsters\Kobold.cs" />
+    <Compile Include="Pickups\DefPotion.cs" />
+    <Compile Include="Pickups\ExpPotion.cs" />
+    <Compile Include="Pickups\GoldCoin.cs" />
+    <Compile Include="Pickups\HpPotion.cs" />
+    <Compile Include="Pickups\Pickup.cs" />
+    <Compile Include="Pickups\PickupFactory.cs" />
+    <Compile Include="Pickups\Potion.cs" />
+    <Compile Include="Pickups\StrPotion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sys\Commands.cs" />
     <Compile Include="Sys\MapGen.cs" />
@@ -102,5 +110,6 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
