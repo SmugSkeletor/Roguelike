@@ -3,7 +3,7 @@ using Roguelike.Systems;
 
 namespace Roguelike.Core
 {
-    public class Monster : Actor
+    public abstract class Monster : Actor
     {
         public int? TurnsAlerted { get; set; }
 
@@ -12,5 +12,8 @@ namespace Roguelike.Core
             var ai = new Basic();
             ai.Act(this, commands);
         }
+
+        //public abstract void SetAttributes();
+
     }
 }

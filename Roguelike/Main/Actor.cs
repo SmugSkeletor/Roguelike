@@ -4,7 +4,7 @@ using RogueSharp;
 
 namespace Roguelike.Core
 {
-    public class Actor : IActor, ISymbol, ITurnQueue
+    public abstract class Actor : IActor, ISymbol, ITurnQueue
     {
         private int _level;
         private int _attack;

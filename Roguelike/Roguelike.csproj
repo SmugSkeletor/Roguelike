@@ -66,6 +66,10 @@
     <Compile Include="Interface\IAI.cs" />
     <Compile Include="Interface\ISymbol.cs" />
     <Compile Include="Interface\ITurnQueue.cs" />
+    <Compile Include="MonsterDecorator\MakeBoss.cs" />
+    <Compile Include="MonsterDecorator\MakeMiniBoss.cs" />
+    <Compile Include="MonsterDecorator\MakeWeakling.cs" />
+    <Compile Include="MonsterDecorator\MonsterDecorator.cs" />
     <Compile Include="Monsters\Beholder.cs" />
     <Compile Include="Monsters\GoblinShaman.cs" />
     <Compile Include="Monsters\Goblin.cs" />
