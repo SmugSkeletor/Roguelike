@@ -16,7 +16,7 @@ namespace Roguelike.MonsterDecorator
             monster.Attack += Dice.Roll("2D5");
             monster.Health = monster.MaxHealth;
             monster.Color = Colors.BossColor;
-            monster.Name += "- Boss";
+            monster.Name += " - Boss";
         }
     }
 }
