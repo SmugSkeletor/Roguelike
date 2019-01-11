@@ -21,8 +21,12 @@ namespace Roguelike.Core
         private int _experience;
         private int _expToLevel;
         private int _gems;
+        private int _x;
+        private int _y;
+        private char _symbol;
+        private RLColor _color;
 
-        public int Gems
+        public virtual int Gems
         {
             get
             {
@@ -34,7 +38,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int Time
+        public virtual int Time
         {
             get
             {
@@ -42,7 +46,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int ExpToLevel
+        public virtual int ExpToLevel
         {
             get
             {
@@ -54,7 +58,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int Experience
+        public virtual int Experience
         {
             get
             {
@@ -66,7 +70,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int ExpValue
+        public virtual int ExpValue
         {
             get
             {
@@ -78,7 +82,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int Level
+        public virtual int Level
         {
             get
             {
@@ -90,7 +94,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int Attack
+        public virtual int Attack
         {
             get
             {
@@ -102,7 +106,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int AtkChance
+        public virtual int AtkChance
         {
             get
             {
@@ -114,7 +118,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int FOVValue
+        public virtual int FOVValue
         {
             get
             {
@@ -126,7 +130,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int Defense
+        public virtual int Defense
         {
             get
             {
@@ -138,7 +142,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int DefChance
+        public virtual int DefChance
         {
             get
             {
@@ -150,7 +154,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int Gold
+        public virtual int Gold
         {
             get
             {
@@ -162,7 +166,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int Health
+        public virtual int Health
         {
             get
             {
@@ -174,7 +178,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int MaxHealth
+        public virtual int MaxHealth
         {
             get
             {
@@ -186,7 +190,7 @@ namespace Roguelike.Core
             }
         }
 
-        public string Name
+        public virtual string Name
         {
             get
             {
@@ -198,7 +202,7 @@ namespace Roguelike.Core
             }
         }
 
-        public int Speed
+        public virtual int Speed
         {
             get
             {
@@ -210,12 +214,52 @@ namespace Roguelike.Core
             }
         }
 
-        public RLColor Color { get; set; }
-        public char Symbol { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public virtual RLColor Color
+        {
+            get
+            {
+                return _color;
+            }
+            set
+            {
+                _color = value;
+            }
+        }
+        public virtual char Symbol
+        {
+            get
+            {
+                return _symbol;
+            }
+            set
+            {
+                _symbol = value;
+            }
+        }
+        public virtual int X
+        {
+            get
+            {
+                return _x;
+            }
+            set
+            {
+                _x = value;
+            }
+        }
+        public virtual int Y
+        {
+            get
+            {
+                return _y;
+            }
+            set
+            {
+                _y = value;
+            }
+        }
 
-        public void Draw(RLConsole console, IMap map)
+        public virtual void Draw(RLConsole console, IMap map)
         {
             if (!map.GetCell(X, Y).IsExplored)
             {

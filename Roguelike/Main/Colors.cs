@@ -21,5 +21,10 @@ namespace Roguelike.Core
         public static RLColor Wall = Palette.Dark6;
         public static RLColor WallBGFov = Palette.Dark5;
         public static RLColor WallFov = Palette.Light2;
+        public static RLColor WeakingColor=Palette.Pink;
+        public static RLColor MiniBossColor=Palette.DarkRed;
+        public static RLColor BossColor=Palette.StrongRed;
+
+
     }
 }

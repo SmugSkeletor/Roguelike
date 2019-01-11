@@ -5,6 +5,7 @@ using RogueSharp;
 using RogueSharp.DiceNotation;
 using System;
 using System.Linq;
+using Roguelike.MonsterDecorator;
 
 namespace Roguelike.Systems
 {
@@ -50,7 +51,12 @@ namespace Roguelike.Systems
                             if (Game.KoboldKarnage) whatMonster = 1;
                             if (whatMonster <= 25)
                             {
-                                var monster = Kobold.Create(level);
+                                //var monster = Kobold.Create(level);
+                                //var monster1 = new Kobold();
+                                //monster1.SetAttributes(level);
+                                Monster monster = new MakeBoss(new Kobold());
+                                monster.SetAttributes(level);
+                                //Kobold monster = new Kobold();
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
                                 _map.AddMonster(monster);

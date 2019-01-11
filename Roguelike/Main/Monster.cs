@@ -13,7 +13,7 @@ namespace Roguelike.Core
             ai.Act(this, commands);
         }
 
-        //public abstract void SetAttributes();
+        public abstract void SetAttributes(int level);
 
     }
 }
