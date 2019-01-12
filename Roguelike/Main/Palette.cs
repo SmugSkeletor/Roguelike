@@ -33,5 +33,12 @@ namespace Roguelike.Core
         public static RLColor DarkRed = new RLColor(179, 0, 0);
         public static RLColor StrongRed = new RLColor(255, 0, 0);
         public static RLColor Pink = new RLColor(255, 102, 255);
+        public static RLColor Green = new RLColor(0, 255, 0);
+        public static RLColor Gold = new RLColor(255, 215, 0);
+        public static RLColor BrickRed = new RLColor(128, 0, 0);
+        public static RLColor StrongPink = new RLColor(204, 0, 102);
+        public static RLColor Yellow = new RLColor(255, 255, 0);
+
+
     }
 }
