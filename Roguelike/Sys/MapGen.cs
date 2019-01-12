@@ -6,6 +6,7 @@ using RogueSharp.DiceNotation;
 using System;
 using System.Linq;
 using Roguelike.MonsterDecorator;
+using Roguelike.Iterators;
 
 namespace Roguelike.Systems
 {
@@ -16,6 +17,7 @@ namespace Roguelike.Systems
         private readonly int _maxRooms;
         private readonly int _roomMaxSize;
         private readonly int _roomMinSize;
+        public RoomIterator iterator;
 
         private readonly DungeonMap _map;
 
@@ -28,11 +30,13 @@ namespace Roguelike.Systems
             _roomMaxSize = roomMaxSize;
             _roomMinSize = roomMinSize;
             _map = new DungeonMap();
+            iterator = _map.CreateIterator();
         }
 
         private void PlaceMobs()
         {
-            foreach (var room in _map.Rooms)
+            for(Rectangle room = iterator.First(); !iterator.IsDone; room = iterator.Next())
+            //foreach (var room in _map.Rooms)
             {
                 if (Dice.Roll("1D10") < 7)
                 {

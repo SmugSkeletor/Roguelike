@@ -3,6 +3,7 @@ using RogueLike;
 using RogueSharp;
 using System.Collections.Generic;
 using System.Linq;
+using Roguelike.Iterators;
 
 namespace Roguelike.Core
 {
@@ -18,11 +19,20 @@ namespace Roguelike.Core
             get { return Rooms[index]; }
             set { Rooms.Insert(index, value); }
         }
+        public int Count
+        {
+            get { return Rooms.Count; }
+        }
+        public RoomIterator CreateIterator()
+        {
+            return new RoomIterator(Rooms);
+        }
         public DungeonMap()
         {
             Game.TurnQueue.Clear();
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
+
         }
 
         public void AddPlayer(Player player)
