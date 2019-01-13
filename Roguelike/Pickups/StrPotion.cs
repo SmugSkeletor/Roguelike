@@ -13,8 +13,9 @@ namespace Roguelike.Pickups
     {
         public StrPotion()
         {
+            Name = "Mikstura sily";
             Symbol = '!';
-            Color = RLColor.LightRed;
+            Color = Colors.StrPotionColor;
         }
 
         public override void OnPickup()

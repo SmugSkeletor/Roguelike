@@ -16,6 +16,13 @@ namespace Roguelike.Pickups
         private int _y;
         private char _symbol;
         private RLColor _color;
+        private string _name;
+
+        public virtual string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
 
         public virtual RLColor Color
         {

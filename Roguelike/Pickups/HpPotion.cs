@@ -16,7 +16,7 @@ namespace Roguelike.Pickups
             Color = Colors.HpPotionColor;
             Name = "Mikstura zycia";
         }
-        public override void OnPickupEffect()
+        public override void OnPickup()
         {
         }
     }

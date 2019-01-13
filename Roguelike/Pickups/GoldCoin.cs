@@ -16,7 +16,7 @@ namespace Roguelike.Pickups
             Color = Colors.GoldCoinColor;
             Name = "Sztuka zlota";
         }
-        public override void OnPickupEffect()
+        public override void OnPickup()
         {
 
         }

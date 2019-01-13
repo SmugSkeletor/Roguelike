@@ -16,7 +16,7 @@ namespace Roguelike.Pickups
             Color = Colors.ExpPotionColor;
             Name = "Mikstura doswiadczenia";
         }
-        public override void OnPickupEffect()
+        public override void OnPickup()
         {
 
         }

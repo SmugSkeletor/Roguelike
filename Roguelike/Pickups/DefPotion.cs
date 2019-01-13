@@ -16,7 +16,7 @@ namespace Roguelike.Pickups
             Color = Colors.DefPotionColor;
             Name = "Mikstura obrony";
         }
-        public override void OnPickupEffect()
+        public override void OnPickup()
         {
 
         }
