@@ -63,7 +63,7 @@ namespace RogueLike
             factoryList.Add(new BeholderFactory());
             factoryList.Add(new GoblinShamanFactory());//statyczna lista o ogólnym dostępie
 
-            MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 20, 5, _mapLevel);
+            MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 20, 5, _mapLevel,factoryList);
             DMap = mapGen.GenerateMap();
             DMap.UpdatePlayerFOV();
             string bitmap = "terminal8x8.png";
@@ -115,7 +115,7 @@ namespace RogueLike
                     {
                         KoboldKarnage = true;
                         DanteMustDie = false;
-                        MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 10, 5, _mapLevel);
+                        MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 10, 5, _mapLevel,factoryList);
                         DMap = mapGen.GenerateMap();
                         Log = new Log();
                         Commands = new Commands();
@@ -126,7 +126,7 @@ namespace RogueLike
                     {
                         DanteMustDie = true;
                         KoboldKarnage = false;
-                        MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 10, 5, _mapLevel);
+                        MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 10, 5, _mapLevel,factoryList);
                         DMap = mapGen.GenerateMap();
                         Log = new Log();
                         Commands = new Commands();
@@ -161,7 +161,7 @@ namespace RogueLike
                     {
                         if (DMap.CanGoDownStairs())
                         {
-                            MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 20, 5, ++_mapLevel);
+                            MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 20, 5, ++_mapLevel,factoryList);
                             DMap = mapGen.GenerateMap();
                             Log = new Log();
                             Commands = new Commands();

@@ -8,6 +8,8 @@ using System.Linq;
 using Roguelike.MonsterDecorator;
 using Roguelike.Iterators;
 using Roguelike.Pickups;
+using Roguelike.MonsterFactories;
+using System.Collections.Generic;
 
 namespace Roguelike.Systems
 {
@@ -19,12 +21,14 @@ namespace Roguelike.Systems
         private readonly int _roomMaxSize;
         private readonly int _roomMinSize;
         public RoomIterator iterator;
+        private List<MonsterFactory> factoryList;
 
         private readonly DungeonMap _map;
 
         public MapGen(int width, int height,
-        int maxRooms, int roomMaxSize, int roomMinSize, int mapLevel)
+        int maxRooms, int roomMaxSize, int roomMinSize, int mapLevel, List<MonsterFactory> list)
         {
+            factoryList = list;
             _width = width;
             _height = height;
             _maxRooms = maxRooms;
@@ -55,6 +59,27 @@ namespace Roguelike.Systems
                     if (numberOfMonsters < 1) numberOfMonsters = 1;
                     for (int i = 0; i < numberOfMonsters; i++)
                     {
+                        CreationType type;
+                        var typeDecider = Dice.Roll("1D100");
+                        if (typeDecider <= 60)
+                        {
+                            type = CreationType.NORMAL;
+                        }
+                        else if(typeDecider<=80)
+                        {
+                            type = CreationType.WEAK;
+                        }
+                        else if(typeDecider<=92)
+                        {
+                            type = CreationType.MINI_BOSS;
+                        }
+                        else
+                        {
+                            type = CreationType.BOSS;
+                        }
+
+
+
                         Point randomRoomLocation = _map.GetRandomFreeTile(room);
                         if (randomRoomLocation != null)
                         {
@@ -67,7 +92,7 @@ namespace Roguelike.Systems
                                 //var monster = Kobold.Create(level);
                                 //var monster1 = new Kobold();
                                 //monster1.SetAttributes(level);
-                                Monster monster = new MakeBoss(new Kobold());
+                                Monster monster = factoryList[0].Create(type);
                                 monster.SetAttributes(level);
                                 //Kobold monster = new Kobold();
                                 monster.X = randomRoomLocation.X;
@@ -76,28 +101,32 @@ namespace Roguelike.Systems
                             }
                             else if (whatMonster <= 50)
                             {
-                                var monster = Orc.Create(level);
+                                Monster monster = factoryList[1].Create(type);
+                                monster.SetAttributes(level);
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
                                 _map.AddMonster(monster);
                             }
                             else if (whatMonster <= 90)
                             {
-                                var monster = Goblin.Create(level);
+                                Monster monster = factoryList[2].Create(type);
+                                monster.SetAttributes(level);
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
                                 _map.AddMonster(monster);
                             }
                             else if (whatMonster <= 95)
                             {
-                                var monster = Beholder.Create(level);
+                                Monster monster = factoryList[3].Create(type);
+                                monster.SetAttributes(level);
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
                                 _map.AddMonster(monster);
                             }
                             else if (whatMonster <= 100)
                             {
-                                var monster = GoblinShaman.Create(level);
+                                Monster monster = factoryList[4].Create(type);
+                                monster.SetAttributes(level);
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
                                 _map.AddMonster(monster);
