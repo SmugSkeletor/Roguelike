@@ -14,7 +14,7 @@ namespace Roguelike.Pickups
         public StrPotion()
         {
             Name = "Mikstura sily";
-            Symbol = '!';
+            Symbol = (char)169;
             Color = Colors.StrPotionColor;
         }
 
