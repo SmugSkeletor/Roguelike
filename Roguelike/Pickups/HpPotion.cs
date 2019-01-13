@@ -8,5 +8,9 @@ namespace Roguelike.Pickups
 {
     public class HpPotion : Potion
     {
+        public override void OnPickup()
+        {
+
+        }
     }
 }

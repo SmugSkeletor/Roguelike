@@ -8,5 +8,9 @@ namespace Roguelike.Pickups
 {
     public class ExpPotion : Potion
     {
+        public override void OnPickup()
+        {
+
+        }
     }
 }

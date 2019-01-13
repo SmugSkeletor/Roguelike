@@ -4,6 +4,7 @@ using RogueSharp;
 using System.Collections.Generic;
 using System.Linq;
 using Roguelike.Iterators;
+using Roguelike.Pickups;
 
 namespace Roguelike.Core
 {
@@ -11,6 +12,7 @@ namespace Roguelike.Core
 
     {
         private readonly List<Monster> _monsters;
+        private readonly List<Pickup> _pickups;
         public List<Rectangle> Rooms;
         public Stairs StairsUp { get; set; }
         public Stairs StairsDown { get; set; }
@@ -32,12 +34,13 @@ namespace Roguelike.Core
             Game.TurnQueue.Clear();
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
+            _pickups = new List<Pickup>();
 
         }
 
         public void AddPlayer(Player player)
         {
-            Game.Player = player;
+            Game.Player = Player.GetInstance();
             SetIsWalkable(player.X, player.Y, false);
             UpdatePlayerFOV();
             Game.TurnQueue.Add(player);
@@ -73,6 +76,11 @@ namespace Roguelike.Core
             Game.TurnQueue.Add(monster);
         }
 
+        public void AddPickup(Pickup pickup)
+        {
+            _pickups.Add(pickup);
+        }
+
         public void DeleteMonster(Monster monster)
         {
             _monsters.Remove(monster);
@@ -80,9 +88,19 @@ namespace Roguelike.Core
             Game.TurnQueue.Remove(monster);
         }
 
+        public void DeletePickup(Pickup pickup)
+        {
+            _pickups.Remove(pickup);
+        }
+
         public Monster GetMobAt(int x, int y)
         {
             return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
+        }
+
+        public Pickup GetPickupAt(int x, int y)
+        {
+            return _pickups.FirstOrDefault(p => p.X == x && p.Y == y);
         }
 
         public Point GetRandomFreeTile(Rectangle room)
@@ -145,6 +163,11 @@ namespace Roguelike.Core
             foreach (Monster monster in _monsters)
             {
                 monster.Draw(mapConsole, this);
+            }
+
+            foreach (Pickup pickup in _pickups)
+            {
+                pickup.Draw(mapConsole, this);
             }
             StairsDown.Draw(mapConsole, this);
         }

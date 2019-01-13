@@ -8,5 +8,9 @@ namespace Roguelike.Pickups
 {
     public class GoldCoin : Pickup
     {
+        public override void OnPickup()
+        {
+
+        }
     }
 }

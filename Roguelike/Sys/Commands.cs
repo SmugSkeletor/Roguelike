@@ -1,5 +1,6 @@
 ﻿using Roguelike.Core;
 using Roguelike.Interfaces;
+using Roguelike.Pickups;
 using RogueLike;
 using RogueSharp;
 using RogueSharp.DiceNotation;
@@ -42,8 +43,14 @@ namespace Roguelike.Systems
                     }
             }
 
+            Pickup pickup = Game.DMap.GetPickupAt(x, y);
             if (Game.DMap.SetActorPosition(Game.Player, x, y))
             {
+                if (pickup != null)
+                {
+                    pickup.OnPickup();
+                    Game.DMap.DeletePickup(pickup);
+                }
                 return true;
             }
             Monster monster = Game.DMap.GetMobAt(x, y);

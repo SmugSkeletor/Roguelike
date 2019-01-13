@@ -24,7 +24,7 @@ namespace RogueLike
         public static IRandom Random { get; private set; }
         private static bool _renderChange = true;
         public static Commands Commands { get; private set; }
-        public static Player Player { get; set; }
+        public static Player Player = Player.GetInstance();
         public static DungeonMap DMap { get; set; }
         public static int _mapLevel = 1;
         public static int regen { get; set; }
@@ -308,9 +308,9 @@ namespace RogueLike
             if (_renderChange)
             {
                 DMap.Draw(_mapConsole);
-                Player.Draw(_mapConsole, DMap);
-                Player.DrawStats(_statConsole);
-                Player.DrawLoot(_lootConsole);
+                Player.GetInstance().Draw(_mapConsole, DMap);
+                Player.GetInstance().DrawStats(_statConsole);
+                Player.GetInstance().DrawLoot(_lootConsole);
                 Log.Draw(_logConsole);
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _mainConsole, 0, _lootHeight);
                 RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _mainConsole, _mapWidth, 0);

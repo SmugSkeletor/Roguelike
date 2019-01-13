@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using Roguelike.MonsterDecorator;
 using Roguelike.Iterators;
+using Roguelike.Pickups;
 
 namespace Roguelike.Systems
 {
@@ -38,6 +39,14 @@ namespace Roguelike.Systems
             for(Rectangle room = iterator.First(); !iterator.IsDone; room = iterator.Next())
             //foreach (var room in _map.Rooms)
             {
+                Point randomPickupPoint = _map.GetRandomFreeTile(room);
+                if (randomPickupPoint != null)
+                {
+                    StrPotion pot = new StrPotion();
+                    pot.X = randomPickupPoint.X;
+                    pot.Y = randomPickupPoint.Y;
+                    _map.AddPickup(pot);
+                }
                 if (Dice.Roll("1D10") < 7)
                 {
                     var numberOfMonsters = Dice.Roll("1D4");

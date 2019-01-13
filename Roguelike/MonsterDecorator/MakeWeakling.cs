@@ -17,6 +17,7 @@ namespace Roguelike.MonsterDecorator
             monster.Attack -= Dice.Roll("1D5");
             if (monster.Attack < 0)
                 monster.Attack = 0;
+            if (monster.MaxHealth <= 0) monster.MaxHealth = 1;
             monster.Health = monster.MaxHealth;
             monster.Color = Colors.WeakingColor;
             monster.Name += " - Slabeusz";
