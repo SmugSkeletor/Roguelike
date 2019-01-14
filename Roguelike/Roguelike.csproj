@@ -94,6 +94,7 @@
     <Compile Include="Pickups\StrPotion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sys\Commands.cs" />
+    <Compile Include="Sys\Facade.cs" />
     <Compile Include="Sys\MapGen.cs" />
     <Compile Include="Sys\Log.cs" />
     <Compile Include="Sys\TurnQueue.cs" />
