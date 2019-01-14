@@ -18,7 +18,7 @@ namespace Roguelike.Pickups
         }
         public override void OnPickup()
         {
-
+            Player.GetInstance().Defense += 1;
         }
     }
 }

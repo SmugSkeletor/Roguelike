@@ -18,6 +18,8 @@ namespace Roguelike.Pickups
         }
         public override void OnPickup()
         {
+            Player.GetInstance().Health += ((int)Player.GetInstance().MaxHealth) / 2;
+            if (Player.GetInstance().Health > Player.GetInstance().MaxHealth) Player.GetInstance().Health = Player.GetInstance().MaxHealth;
         }
     }
 }

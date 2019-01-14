@@ -46,7 +46,7 @@ namespace Roguelike.Systems
                 Point randomPickupPoint = _map.GetRandomFreeTile(room);
                 if (randomPickupPoint != null)
                 {
-                    StrPotion pot = new StrPotion();
+                    GoldCoin pot = new GoldCoin();
                     pot.X = randomPickupPoint.X;
                     pot.Y = randomPickupPoint.Y;
                     _map.AddPickup(pot);
@@ -139,7 +139,7 @@ namespace Roguelike.Systems
 
         private void PlacePlayer()
         {
-            Player player = Game.Player;
+            Player player = Player.GetInstance();
             if (player == null)
             {
                 player = Player.GetInstance();

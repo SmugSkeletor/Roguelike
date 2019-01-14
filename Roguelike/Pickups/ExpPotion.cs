@@ -18,7 +18,8 @@ namespace Roguelike.Pickups
         }
         public override void OnPickup()
         {
-
+            Player.GetInstance().Experience += ((int)Player.GetInstance().ExpToLevel) / 5;
+            if (Player.GetInstance().Experience >= Player.GetInstance().ExpToLevel) Player.GetInstance().LevelUp();
         }
     }
 }
