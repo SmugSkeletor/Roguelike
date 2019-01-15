@@ -78,6 +78,7 @@
     <Compile Include="MonsterFactories\GoblinShamanFactory.cs" />
     <Compile Include="MonsterFactories\KoboldFactory.cs" />
     <Compile Include="MonsterFactories\MonsterFactory.cs" />
+    <Compile Include="MonsterFactories\MonsterFactoryStore.cs" />
     <Compile Include="MonsterFactories\OrcFactory.cs" />
     <Compile Include="Monsters\Beholder.cs" />
     <Compile Include="Monsters\GoblinShaman.cs" />

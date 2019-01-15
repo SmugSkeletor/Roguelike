@@ -21,14 +21,12 @@ namespace Roguelike.Systems
         private readonly int _roomMaxSize;
         private readonly int _roomMinSize;
         public RoomIterator iterator;
-        private List<MonsterFactory> factoryList;
 
         private readonly DungeonMap _map;
 
         public MapGen(int width, int height,
-        int maxRooms, int roomMaxSize, int roomMinSize, int mapLevel, List<MonsterFactory> list)
+        int maxRooms, int roomMaxSize, int roomMinSize, int mapLevel)
         {
-            factoryList = list;
             _width = width;
             _height = height;
             _maxRooms = maxRooms;
@@ -89,19 +87,15 @@ namespace Roguelike.Systems
                             if (Game.KoboldKarnage) whatMonster = 1;
                             if (whatMonster <= 25)
                             {
-                                //var monster = Kobold.Create(level);
-                                //var monster1 = new Kobold();
-                                //monster1.SetAttributes(level);
-                                Monster monster = factoryList[0].Create(type);
+                                Monster monster = MonsterFactoryStore.getFactory(FactoryType.KOBOLD).Create(type);
                                 monster.SetAttributes(level);
-                                //Kobold monster = new Kobold();
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
                                 _map.AddMonster(monster);
                             }
                             else if (whatMonster <= 50)
                             {
-                                Monster monster = factoryList[1].Create(type);
+                                Monster monster = MonsterFactoryStore.getFactory(FactoryType.ORC).Create(type);
                                 monster.SetAttributes(level);
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
@@ -109,7 +103,7 @@ namespace Roguelike.Systems
                             }
                             else if (whatMonster <= 90)
                             {
-                                Monster monster = factoryList[2].Create(type);
+                                Monster monster = MonsterFactoryStore.getFactory(FactoryType.GOBLIN).Create(type);
                                 monster.SetAttributes(level);
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
@@ -117,7 +111,7 @@ namespace Roguelike.Systems
                             }
                             else if (whatMonster <= 95)
                             {
-                                Monster monster = factoryList[3].Create(type);
+                                Monster monster = MonsterFactoryStore.getFactory(FactoryType.BEHOLDER).Create(type);
                                 monster.SetAttributes(level);
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
@@ -125,7 +119,7 @@ namespace Roguelike.Systems
                             }
                             else if (whatMonster <= 100)
                             {
-                                Monster monster = factoryList[4].Create(type);
+                                Monster monster = MonsterFactoryStore.getFactory(FactoryType.GOBLIN_SHAMAN).Create(type);
                                 monster.SetAttributes(level);
                                 monster.X = randomRoomLocation.X;
                                 monster.Y = randomRoomLocation.Y;
