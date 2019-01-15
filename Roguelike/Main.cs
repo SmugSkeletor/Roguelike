@@ -94,13 +94,13 @@ namespace RogueLike
                 {
                     if (keyPress.Key == RLKey.Number1)
                     {
-                        Game.Player.Attack += 1;
+                        Player.GetInstance().Attack += 1;
                         _renderChange = true;
                     }
 
                     if (keyPress.Key == RLKey.Number2)
                     {
-                        Game.Player.Defense += 1;
+                        Player.GetInstance().Defense += 1;
                         _renderChange = true;
                     }
 
@@ -166,7 +166,7 @@ namespace RogueLike
 
                 if (playerAct)
                 {
-                    if (regen > 7 && Game.Player.Health < Game.Player.MaxHealth) { Game.Player.Health++; regen = 0; }
+                    if (regen > 7 && Player.GetInstance().Health < Player.GetInstance().MaxHealth) { Player.GetInstance().Health++; regen = 0; }
                     _renderChange = true;
                     Commands.EndPlayerTurn();
                 }

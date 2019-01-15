@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RLNET;
 using Roguelike.Core;
+using RogueLike;
 
 namespace Roguelike.Pickups
 {
@@ -19,6 +20,7 @@ namespace Roguelike.Pickups
         public override void OnPickup()
         {
             Player.GetInstance().Defense += 1;
+            Game.Log.Add($"Podnosisz miksture obrony");
         }
     }
 }

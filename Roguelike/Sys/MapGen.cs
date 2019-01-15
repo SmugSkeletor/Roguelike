@@ -81,7 +81,7 @@ namespace Roguelike.Systems
                         Point randomRoomLocation = _map.GetRandomFreeTile(room);
                         if (randomRoomLocation != null)
                         {
-                            int level = Game.Player.Level + Game._mapLevel + Dice.Roll("1D5") - Dice.Roll("1D5");
+                            int level = Player.GetInstance().Level + Game._mapLevel + Dice.Roll("1D5") - Dice.Roll("1D5");
                             if (level < 1) level = 1;
                             int whatMonster = Dice.Roll("1D100");
                             if (Game.KoboldKarnage) whatMonster = 1;
@@ -134,10 +134,6 @@ namespace Roguelike.Systems
         private void PlacePlayer()
         {
             Player player = Player.GetInstance();
-            if (player == null)
-            {
-                player = Player.GetInstance();
-            }
             player.X = _map.Rooms[0].Center.X;
             player.Y = _map.Rooms[0].Center.Y;
             _map.AddPlayer(player);

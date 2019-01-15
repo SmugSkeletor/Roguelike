@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RLNET;
 using Roguelike.Core;
+using RogueLike;
 
 namespace Roguelike.Pickups
 {
@@ -20,6 +21,7 @@ namespace Roguelike.Pickups
         {
             Player.GetInstance().Experience += ((int)Player.GetInstance().ExpToLevel) / 5;
             if (Player.GetInstance().Experience >= Player.GetInstance().ExpToLevel) Player.GetInstance().LevelUp();
+            Game.Log.Add($"Podnosisz miksture doswiadczenia");
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Roguelike.Pickups
         public override void OnPickup()
         {
             Player.GetInstance().Attack += 1;
+            Game.Log.Add($"Podnosisz miksture sily");
         }
     }
 }

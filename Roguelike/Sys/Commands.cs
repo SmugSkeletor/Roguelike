@@ -12,29 +12,29 @@ namespace Roguelike.Systems
     {
         public bool MovePlayer(Direction direction)
         {
-            int x = Game.Player.X;
-            int y = Game.Player.Y;
+            int x = Player.GetInstance().X;
+            int y = Player.GetInstance().Y;
 
             switch (direction)
             {
                 case Direction.Up:
                     {
-                        y = Game.Player.Y - 1;
+                        y = Player.GetInstance().Y - 1;
                         break;
                     }
                 case Direction.Down:
                     {
-                        y = Game.Player.Y + 1;
+                        y = Player.GetInstance().Y + 1;
                         break;
                     }
                 case Direction.Left:
                     {
-                        x = Game.Player.X - 1;
+                        x = Player.GetInstance().X - 1;
                         break;
                     }
                 case Direction.Right:
                     {
-                        x = Game.Player.X + 1;
+                        x = Player.GetInstance().X + 1;
                         break;
                     }
                 default:
@@ -44,7 +44,7 @@ namespace Roguelike.Systems
             }
 
             Pickup pickup = Game.DMap.GetPickupAt(x, y);
-            if (Game.DMap.SetActorPosition(Game.Player, x, y))
+            if (Game.DMap.SetActorPosition(Player.GetInstance(), x, y))
             {
                 if (pickup != null)
                 {
@@ -57,7 +57,7 @@ namespace Roguelike.Systems
 
             if (monster != null)
             {
-                Attack(Game.Player, monster);
+                Attack(Player.GetInstance(), monster);
                 return true;
             }
             return false;
@@ -152,10 +152,10 @@ namespace Roguelike.Systems
 
                 Game.Log.Add($"{defender.Name} ginie i wyrzuca {defender.Gold} zlota");
                 if (defender.Gems > 0) Game.Log.Add($" oraz {defender.Gems} klejnotow");
-                Game.Player.Gold += defender.Gold;
-                Game.Player.Gems += defender.Gems;
-                Game.Player.Experience += defender.ExpValue;
-                if (Game.Player.Experience >= Game.Player.ExpToLevel) { Game.Player.LevelUp(); }
+                Player.GetInstance().Gold += defender.Gold;
+                Player.GetInstance().Gems += defender.Gems;
+                Player.GetInstance().Experience += defender.ExpValue;
+                if (Player.GetInstance().Experience >= Player.GetInstance().ExpToLevel) { Player.GetInstance().LevelUp(); }
             }
         }
 
@@ -172,7 +172,7 @@ namespace Roguelike.Systems
             if (turnQueue is Player)
             {
                 IsPlayerTurn = true;
-                Game.TurnQueue.Add(Game.Player);
+                Game.TurnQueue.Add(Player.GetInstance());
             }
             else
             {
@@ -192,9 +192,9 @@ namespace Roguelike.Systems
         {
             if (!Game.DMap.SetActorPosition(monster, cell.X, cell.Y))
             {
-                if (Game.Player.X == cell.X && Game.Player.Y == cell.Y)
+                if (Player.GetInstance().X == cell.X && Player.GetInstance().Y == cell.Y)
                 {
-                    Attack(monster, Game.Player);
+                    Attack(monster, Player.GetInstance());
                 }
             }
         }
