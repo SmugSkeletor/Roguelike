@@ -40,8 +40,7 @@ namespace Roguelike.Core
 
         public void AddPlayer(Player player)
         {
-            Game.Player = Player.GetInstance();
-            SetIsWalkable(player.X, player.Y, false);
+            SetIsWalkable(Player.GetInstance().X, Player.GetInstance().Y, false);
             UpdatePlayerFOV();
             Game.TurnQueue.Add(player);
         }
@@ -65,8 +64,7 @@ namespace Roguelike.Core
 
         public bool CanGoDownStairs()
         {
-            Player player = Game.Player;
-            return StairsDown.X == player.X && StairsDown.Y == player.Y;
+            return StairsDown.X == Player.GetInstance().X && StairsDown.Y == Player.GetInstance().Y;
         }
 
         public void AddMonster(Monster monster)
@@ -161,8 +159,7 @@ namespace Roguelike.Core
 
         public void UpdatePlayerFOV()
         {
-            Player player = Game.Player;
-            ComputeFov(player.X, player.Y, player.FOVValue, true);
+            ComputeFov(Player.GetInstance().X, Player.GetInstance().Y, Player.GetInstance().FOVValue, true);
             foreach (Cell cell in GetAllCells())
             {
                 if (IsInFov(cell.X, cell.Y))

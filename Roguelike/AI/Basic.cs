@@ -12,36 +12,35 @@ namespace Roguelike.Behaviors
         public bool Act(Monster monster, Commands command)
         {
             DungeonMap DMap = Game.DMap;
-            Player player = Game.Player;
             FieldOfView mobFov = new FieldOfView(DMap);
 
             if (!monster.TurnsAlerted.HasValue)
             {
                 mobFov.ComputeFov(monster.X, monster.Y, monster.FOVValue, true);
-                if (mobFov.IsInFov(player.X, player.Y))
+                if (mobFov.IsInFov(Player.GetInstance().X, Player.GetInstance().Y))
                 {
-                    Game.Log.Add($"{monster.Name} zauwaza {player.Name}");
+                    Game.Log.Add($"{monster.Name} zauwaza {Player.GetInstance().Name}");
                     monster.TurnsAlerted = 1;
                 }
             }
             if (monster.TurnsAlerted.HasValue)
             {
                 DMap.SetIsWalkable(monster.X, monster.Y, true);
-                DMap.SetIsWalkable(player.X, player.Y, true);
+                DMap.SetIsWalkable(Player.GetInstance().X, Player.GetInstance().Y, true);
                 PathFinder pathFinder = new PathFinder(DMap);
                 Path path = null;
                 try
                 {
                     path = pathFinder.ShortestPath(
                     DMap.GetCell(monster.X, monster.Y),
-                    DMap.GetCell(player.X, player.Y));
+                    DMap.GetCell(Player.GetInstance().X, Player.GetInstance().Y));
                 }
                 catch (PathNotFoundException)
                 {
                     Game.Log.Add($"{monster.Name} czeka na okazje do ataku");
                 }
                 DMap.SetIsWalkable(monster.X, monster.Y, false);
-                DMap.SetIsWalkable(player.X, player.Y, false);
+                DMap.SetIsWalkable(Player.GetInstance().X, Player.GetInstance().Y, false);
                 if (path != null)
                 {
                     try

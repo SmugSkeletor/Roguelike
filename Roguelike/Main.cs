@@ -26,7 +26,6 @@ namespace RogueLike
         public static IRandom Random { get; private set; }
         public static bool _renderChange = true;
         public static Commands Commands { get; private set; }
-        public static Player Player = Player.GetInstance();
         public static DungeonMap DMap { get; set; }
         public static int _mapLevel = 1;
         public static int regen { get; set; }
@@ -191,7 +190,7 @@ namespace RogueLike
                 _gameOverConsole = new RLConsole(_mapWidth, _mapHeight);
                 _gameOverConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, Colors.FloorBG);
                 _gameOverConsole.Print(36, 24, "KONIEC GRY", Colors.GameOverColor);
-                _gameOverConsole.Print(29, 26, $"TWOJ WYNIK KONCOWY TO {Player.Gold + (Player.Gems * 100)}", Colors.Gold);
+                _gameOverConsole.Print(29, 26, $"TWOJ WYNIK KONCOWY TO {Player.GetInstance().Gold + (Player.GetInstance().Gems * 100)}", Colors.Gold);
                 _gameOverConsole.Print(28, 30, "WCISNIJ ESC ABY WYJSC Z GRY", Colors.GameOverColor);
                 RLConsole.Blit(_gameOverConsole, 0, 0, _mapWidth, _mapHeight, _mainConsole, 0, _lootHeight);
                 _mainConsole.Draw();
