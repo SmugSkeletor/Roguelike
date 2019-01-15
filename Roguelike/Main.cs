@@ -17,17 +17,14 @@ namespace RogueLike
         {
             //niewazne
         }
-
+        public static Facade facade = new Facade();
         public static bool DanteMustDie = false;
         public static bool KoboldKarnage = false;
-        public static Log Log { get; private set; }
         public static SoundPlayer soundplayer = new SoundPlayer();
         public static TurnQueue TurnQueue { get; private set; }
         public static IRandom Random { get; private set; }
         public static bool _renderChange = true;
-        public static Commands Commands { get; private set; }
-        public static DungeonMap DMap { get; set; }
-        public static int _mapLevel = 1;
+
         public static int regen { get; set; }
         public static bool _gameOver = false;
         public static bool _start = true;
@@ -54,31 +51,24 @@ namespace RogueLike
             TurnQueue = new TurnQueue();
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
-            Commands = new Commands();
-            MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 20, 5, _mapLevel);
-            DMap = mapGen.GenerateMap();
-            DMap.UpdatePlayerFOV();
             string bitmap = "terminal8x8.png";
-            string Title = $"RPG - Poziom {_mapLevel}";
+            string Title = $"RPG - Poziom {Facade._mapLevel}";
             _mainConsole = new RLRootConsole(bitmap, _screenWidth, _screenHeight, 8, 8, 1f, Title);
             _mapConsole = new RLConsole(_mapWidth, _mapHeight);
             _logConsole = new RLConsole(_logWidth, _logHeight);
             _statConsole = new RLConsole(_statWidth, _statHeight);
             _lootConsole = new RLConsole(_lootWidth, _lootHeight);
-            _mainConsole.Title = $"RPG - Poziom {_mapLevel}";
             _mainConsole.Update += OnRootConsoleUpdate;
             _mainConsole.Render += OnRootConsoleRender;
             _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, Colors.FloorBG);
             _mapConsole.Print(1, 1, "Mapa", Colors.TextH);
-            Log = new Log();
-            Log.Add("Poziom 1");
             _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Palette.Red2);
             _statConsole.Print(1, 1, "Statystyki", Colors.TextH);
-
             _lootConsole.SetBackColor(0, 0, _lootWidth, _lootHeight, Palette.Wood);
             _lootConsole.Print(1, 1, "Ekwipunek", Colors.TextH);
             soundplayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\muzyka.wav";
             soundplayer.PlayLooping();
+            facade.InitGame();
             _mainConsole.Run();
         }
 
@@ -87,7 +77,7 @@ namespace RogueLike
             bool playerAct = false;
             RLKeyPress keyPress = _mainConsole.Keyboard.GetKeyPress();
 
-            if (Commands.IsPlayerTurn)
+            if (Facade.Commands.IsPlayerTurn)
             {
                 if (keyPress != null)
                 {
@@ -107,42 +97,34 @@ namespace RogueLike
                     {
                         KoboldKarnage = true;
                         DanteMustDie = false;
-                        MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 10, 5, _mapLevel);
-                        DMap = mapGen.GenerateMap();
-                        Log = new Log();
-                        Commands = new Commands();
-                        _mainConsole.Title = $"RPG - Poziom {_mapLevel}";
+                        facade.InitGame();
                         playerAct = true;
                     }
                     if (keyPress.Key == RLKey.D)
                     {
                         DanteMustDie = true;
                         KoboldKarnage = false;
-                        MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 10, 5, _mapLevel);
-                        DMap = mapGen.GenerateMap();
-                        Log = new Log();
-                        Commands = new Commands();
-                        _mainConsole.Title = $"RPG - Poziom {_mapLevel}";
+                        facade.InitGame();
                         playerAct = true;
                     }
                     if (keyPress.Key == RLKey.Up)
                     {
-                        playerAct = Commands.MovePlayer(Direction.Up);
+                        playerAct = Facade.Commands.MovePlayer(Direction.Up);
                         regen++;
                     }
                     else if (keyPress.Key == RLKey.Down)
                     {
-                        playerAct = Commands.MovePlayer(Direction.Down);
+                        playerAct = Facade.Commands.MovePlayer(Direction.Down);
                         regen++;
                     }
                     else if (keyPress.Key == RLKey.Left)
                     {
-                        playerAct = Commands.MovePlayer(Direction.Left);
+                        playerAct = Facade.Commands.MovePlayer(Direction.Left);
                         regen++;
                     }
                     else if (keyPress.Key == RLKey.Right)
                     {
-                        playerAct = Commands.MovePlayer(Direction.Right);
+                        playerAct = Facade.Commands.MovePlayer(Direction.Right);
                         regen++;
                     }
                     else if (keyPress.Key == RLKey.Escape)
@@ -151,13 +133,9 @@ namespace RogueLike
                     }
                     else if (keyPress.Key == RLKey.Period)
                     {
-                        if (DMap.CanGoDownStairs())
+                        if (Facade.DMap.CanGoDownStairs())
                         {
-                            MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 20, 5, ++_mapLevel);
-                            DMap = mapGen.GenerateMap();
-                            Log = new Log();
-                            Commands = new Commands();
-                            _mainConsole.Title = $"RPG - Poziom {_mapLevel}";
+                            facade.InitGame();
                             playerAct = true;
                         }
                     }
@@ -167,12 +145,12 @@ namespace RogueLike
                 {
                     if (regen > 7 && Player.GetInstance().Health < Player.GetInstance().MaxHealth) { Player.GetInstance().Health++; regen = 0; }
                     _renderChange = true;
-                    Commands.EndPlayerTurn();
+                    Facade.Commands.EndPlayerTurn();
                 }
             }
             else
             {
-                Commands.ActivateMobs();
+                Facade.Commands.ActivateMobs();
                 _renderChange = true;
             }
         }
@@ -204,11 +182,11 @@ namespace RogueLike
 
             if (_renderChange)
             {
-                DMap.Draw(_mapConsole);
-                Player.GetInstance().Draw(_mapConsole, DMap);
+                Facade.DMap.Draw(_mapConsole);
+                Player.GetInstance().Draw(_mapConsole, Facade.DMap);
                 Player.GetInstance().DrawStats(_statConsole);
                 Player.GetInstance().DrawLoot(_lootConsole);
-                Log.Draw(_logConsole);
+                Facade.Log.Draw(_logConsole);
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _mainConsole, 0, _lootHeight);
                 RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _mainConsole, _mapWidth, 0);
                 RLConsole.Blit(_logConsole, 0, 0, _logWidth, _logHeight, _mainConsole, 0, _screenHeight - _logHeight);

@@ -10,6 +10,7 @@ using Roguelike.Iterators;
 using Roguelike.Pickups;
 using Roguelike.MonsterFactories;
 using System.Collections.Generic;
+using Roguelike.Sys;
 
 namespace Roguelike.Systems
 {
@@ -116,7 +117,7 @@ namespace Roguelike.Systems
                         Point randomRoomLocation = _map.GetRandomFreeTile(room);
                         if (randomRoomLocation != null)
                         {
-                            int level = Player.GetInstance().Level + Game._mapLevel + Dice.Roll("1D5") - Dice.Roll("1D5");
+                            int level = Player.GetInstance().Level + Facade._mapLevel + Dice.Roll("1D5") - Dice.Roll("1D5");
                             if (level < 1) level = 1;
                             int whatMonster = Dice.Roll("1D100");
                             if (Game.KoboldKarnage) whatMonster = 1;

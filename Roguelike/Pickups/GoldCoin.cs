@@ -7,6 +7,7 @@ using RLNET;
 using Roguelike.Core;
 using RogueLike;
 using RogueSharp.DiceNotation;
+using Roguelike.Sys;
 
 namespace Roguelike.Pickups
 {
@@ -21,7 +22,7 @@ namespace Roguelike.Pickups
         public override void OnPickup()
         {
             Player.GetInstance().Gold += Dice.Roll("1D100");
-            Game.Log.Add($"Podnosisz zloto");
+            Facade.Log.Add($"Podnosisz zloto");
         }
     }
 }

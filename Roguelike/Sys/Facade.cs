@@ -5,14 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using Roguelike.Core;
 using RogueLike;
+using Roguelike.Systems;
 using Roguelike.Interfaces;
 using RLNET;
 
 
 namespace Roguelike.Sys
 {
-    class Facade
+    public class Facade
     {
+        public static Commands Commands { get; private set; }
+        public static DungeonMap DMap { get; set; }
+        public static Log Log { get; private set; }
+        private static readonly int _mapWidth = 80;
+        private static readonly int _mapHeight = 48;
+        public static int _mapLevel = 0;
+
+
+        public void InitGame()
+        {
+            MapGen mapGen = new MapGen(_mapWidth, _mapHeight, 50, 20, 5, ++_mapLevel);
+            DMap = mapGen.GenerateMap();
+            DMap.UpdatePlayerFOV();
+            Log = new Log();
+            Commands = new Commands();
+            Game._mainConsole.Title = $"RPG - Poziom {_mapLevel}";
+        }
+
         public void ShowMenu()
         {
             RLKeyPress keyPress = Game._mainConsole.Keyboard.GetKeyPress();
@@ -88,7 +107,7 @@ namespace Roguelike.Sys
             Game._startConsole.Print(62, 8, "GG           GG", Colors.MenuColor);
             Game._startConsole.Print(62, 7, "GGGGGGGGGGGGGGG", Colors.MenuColor);
 
-            Game._startConsole.Print(36, 40, "Autor: Adam Bartulewicz", Colors.Gold);
+            Game._startConsole.Print(26, 40, "Autorzy: Adam Bartulewicz i Tomasz Smakosz", Colors.Gold);
             Game._startConsole.Print(40, 44, "Klawiszologia:", Colors.Gold);
             Game._startConsole.Print(30, 48, "Poruszanie sie i atakowanie wrogow", Colors.Text);
             Game._startConsole.Print(32, 50, "odbywa sie za pomoca strzalek", Colors.Text);

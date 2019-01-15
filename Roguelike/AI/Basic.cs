@@ -2,6 +2,7 @@
 using Roguelike.Interfaces;
 using Roguelike.Systems;
 using RogueLike;
+using Roguelike.Sys;
 using RogueSharp;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace Roguelike.Behaviors
     {
         public bool Act(Monster monster, Commands command)
         {
-            DungeonMap DMap = Game.DMap;
+            DungeonMap DMap = Facade.DMap;
             FieldOfView mobFov = new FieldOfView(DMap);
 
             if (!monster.TurnsAlerted.HasValue)
@@ -19,7 +20,7 @@ namespace Roguelike.Behaviors
                 mobFov.ComputeFov(monster.X, monster.Y, monster.FOVValue, true);
                 if (mobFov.IsInFov(Player.GetInstance().X, Player.GetInstance().Y))
                 {
-                    Game.Log.Add($"{monster.Name} zauwaza {Player.GetInstance().Name}");
+                    Facade.Log.Add($"{monster.Name} zauwaza {Player.GetInstance().Name}");
                     monster.TurnsAlerted = 1;
                 }
             }
@@ -37,7 +38,7 @@ namespace Roguelike.Behaviors
                 }
                 catch (PathNotFoundException)
                 {
-                    Game.Log.Add($"{monster.Name} czeka na okazje do ataku");
+                    Facade.Log.Add($"{monster.Name} czeka na okazje do ataku");
                 }
                 DMap.SetIsWalkable(monster.X, monster.Y, false);
                 DMap.SetIsWalkable(Player.GetInstance().X, Player.GetInstance().Y, false);
@@ -49,7 +50,7 @@ namespace Roguelike.Behaviors
                     }
                     catch (NoMoreStepsException)
                     {
-                        Game.Log.Add($"{monster.Name} szuka drogi");
+                        Facade.Log.Add($"{monster.Name} szuka drogi");
                     }
                 }
 

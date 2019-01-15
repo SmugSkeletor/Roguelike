@@ -1,6 +1,6 @@
 ﻿using RLNET;
 using RogueLike;
-using Roguelike;
+using Roguelike.Sys;
 using RogueSharp.DiceNotation;
 using Roguelike.Systems;
 
@@ -61,9 +61,9 @@ namespace Roguelike.Core
             Defense += Dice.Roll("1D2");
             MaxHealth += Dice.Roll("1D3");
             Health = MaxHealth;
-            Game.Log.Add($"--------------------------------------");
-            Game.Log.Add($"WKRACZASZ NA {Level} POZIOM DOSWIADCZENIA");
-            Game.Log.Add($"--------------------------------------");
+            Facade.Log.Add($"--------------------------------------");
+            Facade.Log.Add($"WKRACZASZ NA {Level} POZIOM DOSWIADCZENIA");
+            Facade.Log.Add($"--------------------------------------");
         }
     }
 }

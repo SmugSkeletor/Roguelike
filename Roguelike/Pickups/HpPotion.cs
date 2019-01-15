@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RLNET;
 using Roguelike.Core;
 using RogueLike;
+using Roguelike.Sys;
 
 namespace Roguelike.Pickups
 {
@@ -21,7 +22,7 @@ namespace Roguelike.Pickups
         {
             Player.GetInstance().Health += ((int)Player.GetInstance().MaxHealth) / 2;
             if (Player.GetInstance().Health > Player.GetInstance().MaxHealth) Player.GetInstance().Health = Player.GetInstance().MaxHealth;
-            Game.Log.Add($"Podnosisz miksture zycia");
+            Facade.Log.Add($"Podnosisz miksture zycia");
         }
     }
 }

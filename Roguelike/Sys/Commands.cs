@@ -5,6 +5,7 @@ using RogueLike;
 using RogueSharp;
 using RogueSharp.DiceNotation;
 using System.Text;
+using Roguelike.Sys;
 
 namespace Roguelike.Systems
 {
@@ -43,17 +44,17 @@ namespace Roguelike.Systems
                     }
             }
 
-            Pickup pickup = Game.DMap.GetPickupAt(x, y);
-            if (Game.DMap.SetActorPosition(Player.GetInstance(), x, y))
+            Pickup pickup = Facade.DMap.GetPickupAt(x, y);
+            if (Facade.DMap.SetActorPosition(Player.GetInstance(), x, y))
             {
                 if (pickup != null)
                 {
                     pickup.OnPickup();
-                    Game.DMap.DeletePickup(x,y);
+                    Facade.DMap.DeletePickup(x,y);
                 }
                 return true;
             }
-            Monster monster = Game.DMap.GetMobAt(x, y);
+            Monster monster = Facade.DMap.GetMobAt(x, y);
 
             if (monster != null)
             {
@@ -69,10 +70,10 @@ namespace Roguelike.Systems
             StringBuilder defLog = new StringBuilder();
             int hits = CountAtk(attacker, defender, atkLog);
             int blocks = CountDef(defender, hits, atkLog, defLog);
-            Game.Log.Add(atkLog.ToString());
+            Facade.Log.Add(atkLog.ToString());
             if (!string.IsNullOrWhiteSpace(defLog.ToString()))
             {
-                Game.Log.Add(defLog.ToString());
+                Facade.Log.Add(defLog.ToString());
             }
             int dmg = hits - blocks;
 
@@ -126,7 +127,7 @@ namespace Roguelike.Systems
             {
                 defender.Health = defender.Health - dmg;
 
-                Game.Log.Add($"{defender.Name} otrzymuje {dmg} obrazen");
+                Facade.Log.Add($"{defender.Name} otrzymuje {dmg} obrazen");
 
                 if (defender.Health <= 0)
                 {
@@ -135,7 +136,7 @@ namespace Roguelike.Systems
             }
             else
             {
-                Game.Log.Add($"{defender.Name} nie otrzymuje obrazen");
+                Facade.Log.Add($"{defender.Name} nie otrzymuje obrazen");
             }
         }
 
@@ -143,15 +144,15 @@ namespace Roguelike.Systems
         {
             if (defender is Player)
             {
-                Game.Log.Add($"{defender.Name} ginie! Koniec gry!");
+                Facade.Log.Add($"{defender.Name} ginie! Koniec gry!");
                 Game._gameOver = true;
             }
             else if (defender is Monster)
             {
-                Game.DMap.DeleteMonster((Monster)defender);
+                Facade.DMap.DeleteMonster((Monster)defender);
 
-                Game.Log.Add($"{defender.Name} ginie i wyrzuca {defender.Gold} zlota");
-                if (defender.Gems > 0) Game.Log.Add($" oraz {defender.Gems} klejnotow");
+                Facade.Log.Add($"{defender.Name} ginie i wyrzuca {defender.Gold} zlota");
+                if (defender.Gems > 0) Facade.Log.Add($" oraz {defender.Gems} klejnotow");
                 Player.GetInstance().Gold += defender.Gold;
                 Player.GetInstance().Gems += defender.Gems;
                 Player.GetInstance().Experience += defender.ExpValue;
@@ -190,7 +191,7 @@ namespace Roguelike.Systems
 
         public void MoveMob(Monster monster, Cell cell)
         {
-            if (!Game.DMap.SetActorPosition(monster, cell.X, cell.Y))
+            if (!Facade.DMap.SetActorPosition(monster, cell.X, cell.Y))
             {
                 if (Player.GetInstance().X == cell.X && Player.GetInstance().Y == cell.Y)
                 {
