@@ -42,11 +42,15 @@ namespace Roguelike.Systems
             for(Rectangle room = iterator.First(); !iterator.IsDone; room = iterator.Next())
             //foreach (var room in _map.Rooms)
             {
+                Random pickupRandomizeCount = new Random();
+                int pickupCount = pickupRandomizeCount.Next(3);
+                Pickup pickup;
+                if(pickupCount!=0) for(int i = 0; i<pickupCount; i++)
+                { 
                 Point randomPickupPoint = _map.GetRandomFreeTile(room);
-                if (randomPickupPoint != null)
+                if (randomPickupPoint != null && _map.GetPickupAt(randomPickupPoint.X, randomPickupPoint.Y)==null)
                 {
                     int roll = Dice.Roll("1D5");
-                    Pickup pickup;
                     switch (roll)
                     {
                         case 1:
@@ -83,7 +87,8 @@ namespace Roguelike.Systems
                     //GoldCoin pickup = new GoldCoin();
                     //pickup.X = randomPickupPoint.X;
                     //pickup.Y = randomPickupPoint.Y;
-                    _map.AddPickup(randomPickupPoint,pickup);
+                    _map.AddPickup(randomPickupPoint, pickup);
+                }
                 }
                 if (Dice.Roll("1D10") < 7)
                 {
