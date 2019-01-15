@@ -10,10 +10,8 @@ using Roguelike.Core;
 
 namespace Roguelike.Pickups
 {
-    public abstract class Pickup : ISymbol
+    public abstract class Pickup
     {
-        private int _x;
-        private int _y;
         private char _symbol;
         private RLColor _color;
         private string _name;
@@ -46,42 +44,20 @@ namespace Roguelike.Pickups
                 _symbol = value;
             }
         }
-        public virtual int X
-        {
-            get
-            {
-                return _x;
-            }
-            set
-            {
-                _x = value;
-            }
-        }
-        public virtual int Y
-        {
-            get
-            {
-                return _y;
-            }
-            set
-            {
-                _y = value;
-            }
-        }
 
-        public virtual void Draw(RLConsole console, IMap map)
+        public virtual void Draw(RLConsole console, IMap map, Point location)
         {
-            if (!map.GetCell(X, Y).IsExplored)
+            if (!map.GetCell(location.X, location.Y).IsExplored)
             {
                 return;
             }
-            if (map.IsInFov(X, Y))
+            if (map.IsInFov(location.X, location.Y))
             {
-                console.Set(X, Y, Color, Colors.FloorBGFov, Symbol);
+                console.Set(location.X, location.Y, Color, Colors.FloorBGFov, Symbol);
             }
             else
             {
-                console.Set(X, Y, Colors.Floor, Colors.FloorBG, '.');
+                console.Set(location.X, location.Y, Colors.Floor, Colors.FloorBG, '.');
             }
         }
 

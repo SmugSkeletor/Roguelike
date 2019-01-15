@@ -44,10 +44,45 @@ namespace Roguelike.Systems
                 Point randomPickupPoint = _map.GetRandomFreeTile(room);
                 if (randomPickupPoint != null)
                 {
-                    GoldCoin pot = new GoldCoin();
-                    pot.X = randomPickupPoint.X;
-                    pot.Y = randomPickupPoint.Y;
-                    _map.AddPickup(pot);
+                    int roll = Dice.Roll("1D5");
+                    Pickup pickup;
+                    switch (roll)
+                    {
+                        case 1:
+                            {
+                                pickup = PickupFactory.GetInstance().getPickup(PickupType.DEF_POTION);
+                                break;
+                            }
+                        case 2:
+                            {
+                                pickup = PickupFactory.GetInstance().getPickup(PickupType.STR_POTION);
+                                break;
+                            }
+                        case 3:
+                            {
+                                pickup = PickupFactory.GetInstance().getPickup(PickupType.EXP_POTION);
+                                break;
+                            }
+                        case 4:
+                            {
+                                pickup = PickupFactory.GetInstance().getPickup(PickupType.GOLD_COIN);
+                                break;
+                            }
+                        case 5:
+                            {
+                                pickup = PickupFactory.GetInstance().getPickup(PickupType.HP_POTION);
+                                break;
+                            }
+                        default:
+                            {
+                                pickup = PickupFactory.GetInstance().getPickup(PickupType.GOLD_COIN);
+                                break;
+                            }
+                    }
+                    //GoldCoin pickup = new GoldCoin();
+                    //pickup.X = randomPickupPoint.X;
+                    //pickup.Y = randomPickupPoint.Y;
+                    _map.AddPickup(randomPickupPoint,pickup);
                 }
                 if (Dice.Roll("1D10") < 7)
                 {

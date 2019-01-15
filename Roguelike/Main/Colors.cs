@@ -25,7 +25,7 @@ namespace Roguelike.Core
         public static RLColor MiniBossColor=Palette.DarkRed;
         public static RLColor BossColor=Palette.StrongRed;
         public static RLColor GoldCoinColor = Palette.Gold;
-        public static RLColor StrPotionColor = Palette.BrickRed;
+        public static RLColor StrPotionColor = Palette.StrongRed;
         public static RLColor HpPotionColor = Palette.StrongPink;
         public static RLColor DefPotionColor = Palette.Green;
         public static RLColor ExpPotionColor = Palette.Yellow;

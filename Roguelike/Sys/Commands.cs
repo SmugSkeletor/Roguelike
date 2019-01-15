@@ -49,7 +49,7 @@ namespace Roguelike.Systems
                 if (pickup != null)
                 {
                     pickup.OnPickup();
-                    Game.DMap.DeletePickup(pickup);
+                    Game.DMap.DeletePickup(x,y);
                 }
                 return true;
             }

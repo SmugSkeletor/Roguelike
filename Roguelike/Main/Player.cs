@@ -40,10 +40,10 @@ namespace Roguelike.Core
         public void DrawStats(RLConsole statConsole)
         {
             statConsole.Print(1, 1, $"Poziom:    {Level}", Colors.Text);
-            statConsole.Print(1, 3, $"Zycie:  {Health} / {MaxHealth}", Colors.Text);
+            statConsole.Print(1, 3, $"Zycie:  {Health} / {MaxHealth} ", Colors.Text);
             statConsole.Print(1, 5, $"Atak:  {Attack} ({AtkChance}%)", Colors.Text);
             statConsole.Print(1, 7, $"Obrona: {Defense} ({DefChance}%)", Colors.Text);
-            statConsole.Print(1, 9, $"Exp: {Experience}/{ExpToLevel}", Colors.Text);
+            statConsole.Print(1, 9, $"Exp: {Experience}/{ExpToLevel} ", Colors.Text);
         }
 
         public void DrawLoot(RLConsole inventoryConsole)

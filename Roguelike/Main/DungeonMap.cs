@@ -12,7 +12,7 @@ namespace Roguelike.Core
 
     {
         private readonly List<Monster> _monsters;
-        private readonly List<Pickup> _pickups;
+        private readonly Dictionary<Point, Pickup> _pickups;
         public List<Rectangle> Rooms;
         public Stairs StairsUp { get; set; }
         public Stairs StairsDown { get; set; }
@@ -34,7 +34,7 @@ namespace Roguelike.Core
             Game.TurnQueue.Clear();
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
-            _pickups = new List<Pickup>();
+            _pickups = new Dictionary<Point, Pickup>();
 
         }
 
@@ -76,9 +76,9 @@ namespace Roguelike.Core
             Game.TurnQueue.Add(monster);
         }
 
-        public void AddPickup(Pickup pickup)
+        public void AddPickup(Point point,Pickup pickup)
         {
-            _pickups.Add(pickup);
+            _pickups.Add(point,pickup);
         }
 
         public void DeleteMonster(Monster monster)
@@ -88,9 +88,20 @@ namespace Roguelike.Core
             Game.TurnQueue.Remove(monster);
         }
 
-        public void DeletePickup(Pickup pickup)
+        public void DeletePickup(int x,int y)
         {
-            _pickups.Remove(pickup);
+            Point point=null;
+            foreach (KeyValuePair<Point, Pickup> entry in _pickups)
+            {
+                if (entry.Key.X == x && entry.Key.Y == y)
+                {
+                    point = entry.Key;
+                }
+            }
+            if (point != null)
+            {
+                _pickups.Remove(point);
+            }
         }
 
         public Monster GetMobAt(int x, int y)
@@ -100,7 +111,14 @@ namespace Roguelike.Core
 
         public Pickup GetPickupAt(int x, int y)
         {
-            return _pickups.FirstOrDefault(p => p.X == x && p.Y == y);
+            foreach (KeyValuePair<Point, Pickup> entry in _pickups)
+            {
+                if(entry.Key.X==x && entry.Key.Y==y)
+                {
+                    return entry.Value;
+                }
+            } 
+            return null;
         }
 
         public Point GetRandomFreeTile(Rectangle room)
@@ -165,9 +183,9 @@ namespace Roguelike.Core
                 monster.Draw(mapConsole, this);
             }
 
-            foreach (Pickup pickup in _pickups)
+            foreach (KeyValuePair<Point, Pickup> pickup in _pickups)
             {
-                pickup.Draw(mapConsole, this);
+                pickup.Value.Draw(mapConsole, this, pickup.Key);
             }
             StairsDown.Draw(mapConsole, this);
         }
